@@ -15,6 +15,28 @@ mock_db = [
             "brands": "Silk",
             "ingredients_text": "Filtered water, almonds, cane sugar, sea salt"
         }
+    },
+    {
+        "barcode": "737628005000",
+        "price": 1.49,
+        "quantity": 120,
+        "status": 1,
+        "product": {
+            "product_name": "Coca-Cola Classic",
+            "brands": "Coca-Cola",
+            "ingredients_text": "Carbonated water, high fructose corn syrup, caramel color, phosphoric acid, natural flavors, caffeine"
+        }
+    },
+    {
+        "barcode": "012000161155",
+        "price": 2.99,
+        "quantity": 75,
+        "status": 1,
+        "product": {
+            "product_name": "Kellogg's Frosted Flakes",
+            "brands": "Kellogg's",
+            "ingredients_text": "Corn, sugar, malt flavoring, salt, vitamins and minerals"
+        }
     }
 ]
 
