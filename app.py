@@ -68,6 +68,10 @@ def fetch_openfoodfacts_data(barcode):
 
 # --- REST API ROUTES ---
 
+@app.route("/", methods=["GET"])
+def welcome():
+    return jsonify({"message": "Welcome to the Inventory Management API"}), 200
+
 @app.route('/inventory', methods=['GET'])
 def get_all_inventory():
     return jsonify(mock_db), 200
