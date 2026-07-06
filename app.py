@@ -10,21 +10,33 @@ mock_db = [
         "price": 3.99,
         "quantity": 45,
         "status": 1,
-        "product_name": "Nutella Hazelnut Spread"
+        "product": {
+            "product_name": "Nutella Hazelnut Spread",
+            "brands": "Ferrero",
+            "ingredients_text": "Hazelnuts, cocoa, sugar"
+        }
     },
     {
         "barcode": "737628005000",
         "price": 1.49,
         "quantity": 120,
         "status": 1,
-        "product_name": "Coca-Cola Classic"
+        "product": {
+            "product_name": "Coca-Cola Classic",
+            "brands": "The Coca-Cola Company",
+            "ingredients_text": "Carbonated water, high fructose corn syrup"
+        }
     },
     {
         "barcode": "012000161155",
         "price": 2.99,
         "quantity": 75,
         "status": 1,
-        "product_name": "Kellogg's Frosted Flakes"
+        "product": {
+            "product_name": "Kellogg's Frosted Flakes",
+            "brands": "Kellogg's",
+            "ingredients_text": "Corn flour, sugar, malt flavor"
+        }
     }
 ]
 
