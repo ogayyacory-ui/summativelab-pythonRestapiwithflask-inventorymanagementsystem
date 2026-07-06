@@ -46,11 +46,12 @@ def add_item():
     try:
         price = float(input("Enter Selling Price: "))
         quantity = int(input("Enter Initial Stock Quantity: "))
+        product_name = input("Enter Product Name: ").strip()
     except ValueError:
         print("Invalid numerical values. Aborting insertion.")
         return
 
-    payload = {"barcode": barcode, "price": price, "quantity": quantity}
+    payload = {"barcode": barcode, "price": price, "quantity": quantity, "product_name": product_name}
     
     try:
         print("Querying system endpoints and fetching OpenFoodFacts data details...")

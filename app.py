@@ -10,33 +10,21 @@ mock_db = [
         "price": 3.99,
         "quantity": 45,
         "status": 1,
-        "product": {
-            "product_name": "Organic Almond Milk",
-            "brands": "Silk",
-            "ingredients_text": "Filtered water, almonds, cane sugar, sea salt"
-        }
+        "product_name": "Nutella Hazelnut Spread"
     },
     {
         "barcode": "737628005000",
         "price": 1.49,
         "quantity": 120,
         "status": 1,
-        "product": {
-            "product_name": "Coca-Cola Classic",
-            "brands": "Coca-Cola",
-            "ingredients_text": "Carbonated water, high fructose corn syrup, caramel color, phosphoric acid, natural flavors, caffeine"
-        }
+        "product_name": "Coca-Cola Classic"
     },
     {
         "barcode": "012000161155",
         "price": 2.99,
         "quantity": 75,
         "status": 1,
-        "product": {
-            "product_name": "Kellogg's Frosted Flakes",
-            "brands": "Kellogg's",
-            "ingredients_text": "Corn, sugar, malt flavoring, salt, vitamins and minerals"
-        }
+        "product_name": "Kellogg's Frosted Flakes"
     }
 ]
 
@@ -51,9 +39,9 @@ def fetch_openfoodfacts_data(barcode):
             data = response.json()
             if data.get("status") == 1:
                 return {
-                    "product_name": data["product"].get("product_name", "Unknown Product"),
-                    "brands": data["product"].get("brands", "Unknown Brand"),
-                    "ingredients_text": data["product"].get("ingredients_text", "No ingredients listed")
+                   "product_name": data["product_name"],
+                   "brands": data["brands"],
+                   "ingredients_text": data["ingredients_text"]
                 }
     except requests.exceptions.RequestException:
         pass
