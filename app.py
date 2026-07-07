@@ -77,6 +77,25 @@ def get_all_inventory():
     return jsonify(mock_db), 200
 
 
+@app.route('/inventory/summary', methods=['GET'])
+def get_inventory_summary():
+    total_items = len(mock_db)
+    total_quantity = sum(item["quantity"] for item in mock_db)
+    total_value = round(sum(item["price"] * item["quantity"] for item in mock_db), 2)
+    return jsonify({
+        "total_items": total_items,
+        "total_quantity": total_quantity,
+        "total_value": total_value
+    }), 200
+
+
+@app.route('/inventory/low-stock', methods=['GET'])
+def get_low_stock_items():
+    threshold = request.args.get("threshold", default=10, type=int)
+    low_stock_items = [item for item in mock_db if item["quantity"] < threshold]
+    return jsonify(low_stock_items), 200
+
+
 @app.route('/inventory/<barcode>', methods=['GET'])
 def get_inventory_item(barcode):
     item = next((x for x in mock_db if x["barcode"] == barcode), None)
@@ -95,6 +114,12 @@ def add_inventory_item():
     if not barcode or price is None or quantity is None:
         return jsonify({"error": "Missing mandatory fields: barcode, price, quantity"}), 400
 
+    try:
+        price = float(price)
+        quantity = int(quantity)
+    except (TypeError, ValueError):
+        return jsonify({"error": "Price must be numeric and quantity must be an integer"}), 400
+
     # Ensure uniqueness
     if any(x["barcode"] == barcode for x in mock_db):
         return jsonify({"error": "Product with this barcode already exists"}), 400
@@ -104,8 +129,8 @@ def add_inventory_item():
     
     new_item = {
         "barcode": str(barcode),
-        "price": float(price),
-        "quantity": int(quantity),
+        "price": price,
+        "quantity": quantity,
         "status": 1,
         "product": api_details
     }

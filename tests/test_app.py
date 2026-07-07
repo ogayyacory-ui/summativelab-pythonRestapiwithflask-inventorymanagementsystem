@@ -65,6 +65,33 @@ class InventoryApiTests(unittest.TestCase):
         self.assertEqual(data["price"], 4.49)
         self.assertEqual(data["quantity"], 50)
 
+    def test_summary_route_returns_inventory_statistics(self):
+        response = self.client.get("/inventory/summary")
+        self.assertEqual(response.status_code, 200)
+        data = response.get_json()
+        self.assertEqual(data["total_items"], 1)
+        self.assertEqual(data["total_quantity"], 45)
+        self.assertEqual(data["total_value"], 179.55)
+
+    def test_low_stock_route_returns_items_below_threshold(self):
+        app_module.mock_db.append({
+            "barcode": "111111111111",
+            "price": 2.0,
+            "quantity": 4,
+            "status": 1,
+            "product": {
+                "product_name": "Low Stock Item",
+                "brands": "Test Brand",
+                "ingredients_text": "Test ingredients"
+            }
+        })
+
+        response = self.client.get("/inventory/low-stock?threshold=5")
+        self.assertEqual(response.status_code, 200)
+        data = response.get_json()
+        self.assertEqual(len(data), 1)
+        self.assertEqual(data[0]["barcode"], "111111111111")
+
     def test_delete_removes_existing_item(self):
         response = self.client.delete("/inventory/008000000661")
         self.assertEqual(response.status_code, 204)
